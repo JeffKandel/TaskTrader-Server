@@ -1,12 +1,11 @@
 'use strict'
-const app = require('APP')
-    , debug = require('debug')(`${app.name}:db`) // DEBUG=your_app_name:db
+const debug = require('debug')(`chorely-server:db`) // DEBUG=your_app_name:db
     , chalk = require('chalk')
     , Sequelize = require('sequelize')
 
-    , name = (app.env.DATABASE_NAME || app.name) +
-             (app.isTesting ? '_test' : '')
-    , url = app.env.DATABASE_URL || `postgres://localhost:5432/${name}`
+    , name = (process.env.DATABASE_NAME || 'chorely-server') +
+             (process.env.IS_TESTING ? '_test' : '')
+    , url = process.env.DATABASE_URL || `postgres://localhost:5432/${name}`
 
 debug(chalk.yellow(`Opening database connection to ${url}`))
 const db = module.exports = new Sequelize(url, {
@@ -37,13 +36,13 @@ Object.assign(db, require('./models')(db),
 db.didSync = db.createAndSync()
 
 // sync the db, creating it if necessary
-function createAndSync(force=app.isTesting, retries=0, maxRetries=5) {
+function createAndSync(force=false, retries=0, maxRetries=5) {
   return db.sync({force})
     .then(() => debug(`Synced models to db ${url}`))
     .catch(fail => {
       // Don't do this auto-create nonsense in prod, or
       // if we've retried too many times.
-      if (app.isProduction || retries > maxRetries) {
+      if (process.env.IS_PRODUCTION || retries > maxRetries) {
         console.error(chalk.red(`********** database error ***********`))
         console.error(chalk.red(`    Couldn't connect to ${url}`))
         console.error()
