@@ -6,7 +6,7 @@ const debug = require('debug')(`chorely-server:db`) // DEBUG=your_app_name:db
     , Sequelize = require('sequelize')
 
     , name = (process.env.DATABASE_NAME || 'chorely-server') +
-             (process.env.IS_TESTING ? '_test' : '')
+             (process.env.IS_TESTING==='yes' ? '_test' : '')
     , url = process.env.DATABASE_URL || `postgres://localhost:5432/${name}`
 
 debug(chalk.yellow(`Opening database connection to ${url}`))
