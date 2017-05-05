@@ -1,0 +1,22 @@
+{
+  "name": "chorely-server",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "node db/seed.js",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TaskIO/chorely-server.git"
+  },
+  "keywords": [],
+  "author": "Daniel Fattal, Jason Miguel, Jeffrey Kandel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TaskIO/chorely-server/issues"
+  },
+  "homepage": "https://github.com/TaskIO/chorely-server#readme"
+}
