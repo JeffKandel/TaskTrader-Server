@@ -1,4 +1,6 @@
 'use strict'
+require('dotenv').config()
+
 const debug = require('debug')(`chorely-server:db`) // DEBUG=your_app_name:db
     , chalk = require('chalk')
     , Sequelize = require('sequelize')
