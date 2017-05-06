@@ -25,5 +25,10 @@
     "pg": "^6.1.5",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.30.4"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-fullstack": "^2.8.1",
+    "eslint-plugin-react": "^6.10.3"
   }
 }
