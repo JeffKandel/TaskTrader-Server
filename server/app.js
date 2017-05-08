@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const graphqlHTTP = require('express-graphql')
 const { buildSchema } = require('graphql')
 const PrettyError = require('pretty-error')
+const finalHandler = require('finalHandler');
 
 // ---------- GRAPHQL Hello World --------- //
 const schema = buildSchema(`

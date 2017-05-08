@@ -1,6 +1,6 @@
 'use strict';
 
-const { STRING, VIRTUAL, BOOLEAN } = require('sequelize');
+const { STRING } = require('sequelize');
 
 module.exports = db =>
   db.define('users', {
@@ -17,6 +17,7 @@ module.exports = db =>
     }
   });
 
-module.exports.associations = (User, { Bounty }) => {
+module.exports.associations = (User, { Bounty, Group, UserGroup }) => {
   User.hasMany(Bounty);
+  User.belongsToMany(Group, { through: UserGroup });
 };
