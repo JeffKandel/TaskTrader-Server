@@ -1,16 +1,112 @@
 'use strict'
 
 const db = require('./')
-    , {Promise} = db
+    , {User, Group, Bounty, Category, Task, Promise} = db
     , {mapValues} = require('lodash')
 
 function seedEverything() {
   const seeded = {
     users: users(),
-    things: things(),
+    groups: groups(),
+    tasks: tasks(),
+    bounties: bounties(),
+    categories: categories()
   }
 
-  seeded.favorites = favorites(seeded)
+  seeded.users = users(seeded)
+  seeded.groups = groups(seeded)
+  seeded.tasks = tasks(seeded)
+  seeded.bounties = bounties(seeded)
+  seeded.categories = categories(seeded)
+
+  const users = seed(User, {
+  jason: {
+    name: 'Jason',
+    password: '123',
+    image: 'default.png',
+    phoneNumber: process.env.PHONE_NUMBER_,
+    email: 'jason.miguel@gmail.com'
+  },
+  dan: {
+    name: 'Dan',
+    password: '123',
+    image: 'default.png',
+    phoneNumber: '2125551234',
+    email: 'df@gmail.com'
+  },
+  jeff: {
+    name: 'Jeff',
+    password: '123',
+    image: 'default.png',
+    phoneNumber: '2125551234',
+    email: 'jeff@gmail.com'
+  },
+  robbyn: {
+    name: 'Robbyn',
+    password: '123',
+    image: 'default.png',
+    phoneNumber: '2125551234',
+    email: 'robbyn@gmail.com'
+  },
+  john: {
+    name: 'John',
+    password: '123',
+    image: 'default.png',
+    phoneNumber: '2125551234',
+    email: 'john@gmail.com'
+  },
+  })
+  const groups = seed(Group, {
+  fullstack: {
+    name: 'Fullstack',
+    description: 'chorely group',
+    image: 'default.png',
+  },
+  apartment: {
+    name: 'Apartment',
+    description: 'apartment',
+    image: 'default.png',
+  },
+
+  })
+  const categories = seed(Category, {
+  fullstack: {
+    name: 'Fullstack',
+    description: 'chorely group',
+    image: 'default.png',
+  },
+  apartment: {
+    name: 'Apartment',
+    description: 'apartment',
+    image: 'default.png',
+  },
+
+  })
+  const tasks = seed(Task, {
+  fullstack: {
+    description: 'chorely group',
+    categories: 'default.png',
+  },
+  apartment: {
+    name: 'Apartment',
+    description: 'apartment',
+    image: 'default.png',
+  },
+
+  })
+  const bounties = seed(Bounty, {
+  fullstack: {
+    name: 'Fullstack',
+    description: 'chorely group',
+    image: 'default.png',
+  },
+  apartment: {
+    name: 'Apartment',
+    description: 'apartment',
+    image: 'default.png',
+  },
+
+  })
 
   return Promise.props(seeded)
 }
