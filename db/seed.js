@@ -8,24 +8,22 @@ function seedEverything() {
   const seeded = {
     users: users(),
     groups: groups(),
-    tasks: tasks(),
-    bounties: bounties(),
-    categories: categories()
   }
 
-  console.log('SEED DAMMIT');
-  seeded.users = users(seeded)
-  seeded.groups = groups(seeded)
   seeded.tasks = tasks(seeded)
   seeded.bounties = bounties(seeded)
   seeded.categories = categories(seeded)
+
+  return Promise.props(seeded)
+}
+
 
   const users = seed(User, {
   jason: {
     name: 'Jason',
     password: '123',
     image: 'default.png',
-    phoneNumber: process.env.PHONE_NUMBER_,
+    phoneNumber: process.env.PHONE_NUMBER_ONE,
     email: 'jason.miguel@gmail.com',
     groupId: 1
   },
@@ -101,17 +99,11 @@ function seedEverything() {
   },
   })
 
-  return Promise.props(seeded)
-}
 
 if (module === require.main) {
-  console.log('PLEASE SEED');
   db.didSync
     .then(() => db.sync({force: true}))
-    .then(() => {
-      console.log('seed everything')
-      seedEverything()
-    })
+    .then(() => seedEverything)
     .finally(() => process.exit(0))
 }
 
@@ -138,7 +130,7 @@ class BadRow extends Error {
 //
 // The function form can be used to initialize rows that reference
 // other models.
-function seed(Model, rows) {
+function seed(Model, rows){
   return (others={}) => {
     if (typeof rows === 'function') {
       rows = Promise.props(
@@ -148,7 +140,6 @@ function seed(Model, rows) {
             typeof other === 'function' ? other() : other)
       ).then(rows)
     }
-
     return Promise.resolve(rows)
       .then(rows => Promise.props(
         Object.keys(rows)
