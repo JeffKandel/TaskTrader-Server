@@ -4,12 +4,7 @@ const graphqlHTTP = require('express-graphql')
 const { buildSchema } = require('graphql')
 const PrettyError = require('pretty-error')
 
-
-if (!process.env.IS_PRODUCTION) {
-  // Logging middleware (dev only)
-  app.use(require('volleyball'))
-}
-
+// ---------- GRAPHQL Hello World --------- //
 const schema = buildSchema(`
   type Query {
     hello: String
@@ -18,7 +13,13 @@ const schema = buildSchema(`
 
 const root = { hello: () => 'Hello world!' }
 
+// ---------- App definition --------- //
 const app = express()
+
+if (!process.env.IS_PRODUCTION) {
+  // Logging middleware (dev only)
+  app.use(require('volleyball'))
+}
 
 app.use('/*', graphqlHTTP({
   schema: schema,
