@@ -7,6 +7,6 @@ module.exports = db =>
     name: STRING
   });
 
-module.exports.associations = (Category, { Task, TaskCategory }) => {
-  Category.belongsToMany(Task, { through: TaskCategory });
+module.exports.associations = (Category, { Task }) => {
+  Category.belongsToMany(Task, { through: 'TaskCategory' });
 };
