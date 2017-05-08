@@ -1,6 +1,6 @@
 'use strict'
 
-const db = require('./')
+const db = require('./db')
     , {User, Group, Bounty, Category, Task, Promise} = db
     , {mapValues} = require('lodash')
 
@@ -25,7 +25,8 @@ function seedEverything() {
     password: '123',
     image: 'default.png',
     phoneNumber: process.env.PHONE_NUMBER_,
-    email: 'jason.miguel@gmail.com'
+    email: 'jason.miguel@gmail.com',
+    groupId: 1
   },
   dan: {
     name: 'Dan',
@@ -83,29 +84,20 @@ function seedEverything() {
 
   })
   const tasks = seed(Task, {
-  fullstack: {
-    description: 'chorely group',
+  code: {
+    description: 'code',
     categories: 'default.png',
   },
-  apartment: {
-    name: 'Apartment',
-    description: 'apartment',
-    image: 'default.png',
+  review: {
+    description: 'review',
+    categories: 'default.png',
   },
 
   })
   const bounties = seed(Bounty, {
   fullstack: {
-    name: 'Fullstack',
-    description: 'chorely group',
-    image: 'default.png',
+    amount: ''
   },
-  apartment: {
-    name: 'Apartment',
-    description: 'apartment',
-    image: 'default.png',
-  },
-
   })
 
   return Promise.props(seeded)
