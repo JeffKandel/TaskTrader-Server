@@ -13,6 +13,7 @@ function seedEverything() {
     categories: categories()
   }
 
+  console.log('SEED DAMMIT');
   seeded.users = users(seeded)
   seeded.groups = groups(seeded)
   seeded.tasks = tasks(seeded)
@@ -104,9 +105,13 @@ function seedEverything() {
 }
 
 if (module === require.main) {
+  console.log('PLEASE SEED');
   db.didSync
     .then(() => db.sync({force: true}))
-    .then(seedEverything)
+    .then(() => {
+      console.log('seed everything')
+      seedEverything()
+    })
     .finally(() => process.exit(0))
 }
 

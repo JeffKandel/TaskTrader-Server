@@ -8,9 +8,9 @@ module.exports = db =>
     categories: STRING
   });
 
-module.exports.associations = (Bounty, { User, Task, BountyTask, Category, TaskCategory }) => {
-  Task.belongsToMany(Bounty, { through: BountyTask });
-  Task.belongsToMany(Category, { through: TaskCategory });
+module.exports.associations = (Bounty, { User, Task, Category }) => {
+  Task.hasMany(Bounty);
+  // Task.belongsToMany(Category, { through: 'TaskCategory' });
   Task.belongsTo(User, { as: 'creator' });
   Task.belongsTo(User, { as: 'assignee' });
 };
