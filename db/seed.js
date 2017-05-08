@@ -1,15 +1,15 @@
 'use strict'
 
-const db = require('./db')
-    , {User, Group, Bounty, Category, Task, Promise} = db
-    , {mapValues} = require('lodash')
+const db = require('./db'),
+  { User, Group, Bounty, Category, Task, Promise } = db,
+  { mapValues } = require('lodash')
 
 function seedEverything() {
   const seeded = {
     users: users(),
-    groups: groups(),
   }
 
+  seeded.groups = groups(seeded)
   seeded.tasks = tasks(seeded)
   seeded.bounties = bounties(seeded)
   seeded.categories = categories(seeded)
@@ -18,45 +18,38 @@ function seedEverything() {
 }
 
 
-  const users = seed(User, {
+const users = seed(User, {
   jason: {
     name: 'Jason',
     password: '123',
     image: 'default.png',
     phoneNumber: process.env.PHONE_NUMBER_ONE,
-    email: 'jason.miguel@gmail.com',
-    groupId: 1
-  },
-  dan: {
-    name: 'Dan',
-    password: '123',
-    image: 'default.png',
-    phoneNumber: '2125551234',
-    email: 'df@gmail.com'
+    email: process.env.EMAIL_NUMBER_ONE,
   },
   jeff: {
     name: 'Jeff',
     password: '123',
     image: 'default.png',
-    phoneNumber: '2125551234',
-    email: 'jeff@gmail.com'
-  },
-  robbyn: {
-    name: 'Robbyn',
-    password: '123',
+    phoneNumber: process.env.PHONE_NUMBER_TWO,
+    email: process.env.EMAIL_NUMBER_TWO,
+  }
+})
+
+const groups = seed(Group, {
+  fullstack: {
+    name: 'Fullstack',
+    description: 'chorely group',
     image: 'default.png',
-    phoneNumber: '2125551234',
-    email: 'robbyn@gmail.com'
+    user_id:jeff.id
   },
-  john: {
-    name: 'John',
-    password: '123',
+  apartment: {
+    name: 'Apartment',
+    description: 'apartment',
     image: 'default.png',
-    phoneNumber: '2125551234',
-    email: 'john@gmail.com'
   },
-  })
-  const groups = seed(Group, {
+})
+
+const categories = seed(Category, {
   fullstack: {
     name: 'Fullstack',
     description: 'chorely group',
@@ -67,22 +60,9 @@ function seedEverything() {
     description: 'apartment',
     image: 'default.png',
   },
+})
 
-  })
-  const categories = seed(Category, {
-  fullstack: {
-    name: 'Fullstack',
-    description: 'chorely group',
-    image: 'default.png',
-  },
-  apartment: {
-    name: 'Apartment',
-    description: 'apartment',
-    image: 'default.png',
-  },
-
-  })
-  const tasks = seed(Task, {
+const tasks = seed(Task, {
   code: {
     description: 'code',
     categories: 'default.png',
@@ -92,18 +72,18 @@ function seedEverything() {
     categories: 'default.png',
   },
 
-  })
-  const bounties = seed(Bounty, {
+})
+const bounties = seed(Bounty, {
   fullstack: {
     amount: ''
   },
-  })
+})
 
 
 if (module === require.main) {
   db.didSync
-    .then(() => db.sync({force: true}))
-    .then(() => seedEverything)
+    .then(() => db.sync({ force: true }))
+    .then(seedEverything)
     .finally(() => process.exit(0))
 }
 
@@ -130,34 +110,34 @@ class BadRow extends Error {
 //
 // The function form can be used to initialize rows that reference
 // other models.
-function seed(Model, rows){
-  return (others={}) => {
+function seed(Model, rows) {
+  return (others = {}) => {
     if (typeof rows === 'function') {
       rows = Promise.props(
         mapValues(others,
           other =>
-            // Is other a function? If so, call it. Otherwise, leave it alone.
-            typeof other === 'function' ? other() : other)
+          // Is other a function? If so, call it. Otherwise, leave it alone.
+          typeof other === 'function' ? other() : other)
       ).then(rows)
     }
     return Promise.resolve(rows)
       .then(rows => Promise.props(
         Object.keys(rows)
-          .map(key => {
-            const row = rows[key]
-            return {
-              key,
-              value: Promise.props(row)
-                .then(row => Model.create(row)
-                  .catch(error => { throw new BadRow(key, row, error) })
-                )
-            }
-          }).reduce(
-            (all, one) => Object.assign({}, all, {[one.key]: one.value}),
-            {}
-          )
+        .map(key => {
+          const row = rows[key]
+          return {
+            key,
+            value: Promise.props(row)
+              .then(row => Model.create(row)
+                .catch(error => {
+                  throw new BadRow(key, row, error) })
+              )
+          }
+        }).reduce(
+          (all, one) => Object.assign({}, all, {
+            [one.key]: one.value }), {}
         )
-      )
+      ))
       .then(seeded => {
         console.log(`Seeded ${Object.keys(seeded).length} ${Model.name} OK`)
         return seeded
