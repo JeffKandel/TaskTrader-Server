@@ -19,5 +19,5 @@ module.exports = db =>
 
 module.exports.associations = (User, { Bounty, Group }) => {
   User.hasMany(Bounty);
-  User.hasMany(Group);
+  User.belongsToMany(Group, {through: 'UserGroup'});
 };

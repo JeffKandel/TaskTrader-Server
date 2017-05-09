@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('./db'),
-  { User, Group, Bounty, Category, Task, Promise } = db,
+  { User, Group, Bounty, Category, Task, UserGroup, Promise } = db,
   { mapValues } = require('lodash')
 
 function seedEverything() {
@@ -10,9 +10,10 @@ function seedEverything() {
   }
 
   seeded.groups = groups(seeded)
-  seeded.tasks = tasks(seeded)
-  seeded.bounties = bounties(seeded)
-  seeded.categories = categories(seeded)
+  // seeded.tasks = tasks(seeded)
+  // seeded.bounties = bounties(seeded)
+  // seeded.categories = categories(seeded)
+  seeded.userGroups = userGroups(seeded)
 
   return Promise.props(seeded)
 }
@@ -25,6 +26,7 @@ const users = seed(User, {
     image: 'default.png',
     phoneNumber: process.env.PHONE_NUMBER_ONE,
     email: process.env.EMAIL_NUMBER_ONE,
+    groupId: 1
   },
   jeff: {
     name: 'Jeff',
@@ -32,6 +34,7 @@ const users = seed(User, {
     image: 'default.png',
     phoneNumber: process.env.PHONE_NUMBER_TWO,
     email: process.env.EMAIL_NUMBER_TWO,
+    groupId: 1
   }
 })
 
@@ -40,7 +43,7 @@ const groups = seed(Group, {
     name: 'Fullstack',
     description: 'chorely group',
     image: 'default.png',
-    user_id:jeff.id
+
   },
   apartment: {
     name: 'Apartment',
@@ -49,41 +52,50 @@ const groups = seed(Group, {
   },
 })
 
-const categories = seed(Category, {
-  fullstack: {
-    name: 'Fullstack',
-    description: 'chorely group',
-    image: 'default.png',
-  },
-  apartment: {
-    name: 'Apartment',
-    description: 'apartment',
-    image: 'default.png',
-  },
-})
+const userGroups = seed(UserGroup,
+  ({users, groups}) => ({
+    'jason fullstack': {
+      group_id: groups.fullstack.id,
+      user_id: users.jason.id
+    },
+    'jeff fullstack': {
+      group_id: groups.fullstack.id,
+      user_id: users.jeff.id
+    },
+  })
+)
 
-const tasks = seed(Task, {
-  code: {
-    description: 'code',
-    categories: 'default.png',
-  },
-  review: {
-    description: 'review',
-    categories: 'default.png',
-  },
-
-})
-const bounties = seed(Bounty, {
-  fullstack: {
-    amount: ''
-  },
-})
+// const categories = seed(Category, {
+//   fullstack: {
+//     name: 'Fullstack',
+//   },
+//   apartment: {
+//     name: 'stuff'
+//   },
+// })
+//
+// const tasks = seed(Task, {
+//   code: {
+//     description: 'code',
+//     categories: 'default.png',
+//   },
+//   review: {
+//     description: 'review',
+//     categories: 'default.png',
+//   },
+//
+// })
+// const bounties = seed(Bounty, {
+//   fullstack: {
+//     amount: 1
+//   },
+// })
 
 
 if (module === require.main) {
   db.didSync
     .then(() => db.sync({ force: true }))
-    .then(seedEverything)
+    .then(seedEverything())
     .finally(() => process.exit(0))
 }
 
