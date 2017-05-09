@@ -5,16 +5,25 @@
 // to get access to the User model.
 
 const debug = require('debug')(`chorely-server:models`)
-    // Our model files export functions that take a database and return
-    // a model. We call these functions "meta models" (they are models of
-    // models).
-    //
-    // This lets us avoid cyclic dependencies, which can be hard to reason
-    // about.
-    , metaModels = {
-      // ---------- Add new models here ----------
-    }
-    , {mapValues} = require('lodash')
+  // Our model files export functions that take a database and return
+  // a model. We call these functions "meta models" (they are models of
+  // models).
+  //
+  // This lets us avoid cyclic dependencies, which can be hard to reason
+  // about.
+  ,
+  metaModels = {
+    // ---------- Add new models here ----------
+    Bounty: require('./bounty'),
+    Category: require('./category'),
+    Group: require('./group'),
+    Task: require('./task'),
+    User: require('./user'),
+    UserGroup: require('./userGroup'),
+    TaskCategory: require('./taskCategory'),
+    BountyTask: require('./bountyTask')
+  },
+  { mapValues } = require('lodash')
 
 module.exports = db => {
   // Create actual model classes by calling each meta model with the
@@ -39,12 +48,12 @@ module.exports = db => {
   */
   Object.keys(metaModels)
     .forEach(name => {
-      const {associations} = metaModels[name]
+      const { associations } = metaModels[name]
       if (typeof associations === 'function') {
         debug('associating model %s', name)
-        // Metamodel::associations(self: Model, others: {[name: String]: Model}) -> ()
-        //
-        // Associate self with others.
+          // Metamodel::associations(self: Model, others: {[name: String]: Model}) -> ()
+          //
+          // Associate self with others.
         associations.call(metaModels[name], models[name], models)
       }
     })
