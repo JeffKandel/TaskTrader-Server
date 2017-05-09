@@ -9,7 +9,7 @@ module.exports = db =>
     image: STRING
   });
 
-module.exports.associations = (Group, { User, Task }) => {
-  Group.belongsToMany(User, { through: 'UserGroup' });
+module.exports.associations = (Group, { User, Task, UserGroup }) => {
+  Group.belongsToMany(User, { through: UserGroup });
   Group.hasMany(Task);
 };

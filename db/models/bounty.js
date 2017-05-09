@@ -7,6 +7,6 @@ module.exports = db =>
     amount: INTEGER
   });
 
-module.exports.associations = (Bounty, { Task }) => {
-  Bounty.belongsToMany(Task, { through: 'BountyTask' });
+module.exports.associations = (Bounty, { Task, BountyTask }) => {
+  Bounty.belongsToMany(Task, { through: BountyTask });
 };
