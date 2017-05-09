@@ -7,13 +7,13 @@ const db = require('./db'),
 function seedEverything() {
   const seeded = {
     users: users(),
+    groups: groups(),
   }
 
-  seeded.groups = groups(seeded)
-  // seeded.tasks = tasks(seeded)
-  // seeded.bounties = bounties(seeded)
-  // seeded.categories = categories(seeded)
-  seeded.userGroups = userGroups(seeded)
+  seeded.tasks = tasks(seeded)
+  seeded.bounties = bounties(seeded)
+    // seeded.categories = categories(seeded)
+    // seeded.userGroups = userGroups(seeded)
 
   return Promise.props(seeded)
 }
@@ -26,7 +26,6 @@ const users = seed(User, {
     image: 'default.png',
     phoneNumber: process.env.PHONE_NUMBER_ONE,
     email: process.env.EMAIL_NUMBER_ONE,
-    groupId: 1
   },
   jeff: {
     name: 'Jeff',
@@ -34,7 +33,6 @@ const users = seed(User, {
     image: 'default.png',
     phoneNumber: process.env.PHONE_NUMBER_TWO,
     email: process.env.EMAIL_NUMBER_TWO,
-    groupId: 1
   }
 })
 
@@ -52,18 +50,18 @@ const groups = seed(Group, {
   },
 })
 
-const userGroups = seed(UserGroup,
-  ({users, groups}) => ({
-    'jason fullstack': {
-      group_id: groups.fullstack.id,
-      user_id: users.jason.id
-    },
-    'jeff fullstack': {
-      group_id: groups.fullstack.id,
-      user_id: users.jeff.id
-    },
-  })
-)
+// const userGroups = seed(UserGroup,
+//   ({users, groups}) => ({
+//     'jason fullstack': {
+//       group_id: groups.fullstack.id,
+//       user_id: users.jason.id
+//     },
+//     'jeff fullstack': {
+//       group_id: groups.fullstack.id,
+//       user_id: users.jeff.id
+//     },
+//   })
+// )
 
 // const categories = seed(Category, {
 //   fullstack: {
@@ -74,28 +72,75 @@ const userGroups = seed(UserGroup,
 //   },
 // })
 //
-// const tasks = seed(Task, {
-//   code: {
-//     description: 'code',
-//     categories: 'default.png',
-//   },
-//   review: {
-//     description: 'review',
-//     categories: 'default.png',
-//   },
-//
-// })
-// const bounties = seed(Bounty, {
-//   fullstack: {
-//     amount: 1
-//   },
-// })
+
+const tasks = seed(Task,
+  ({ groups, users }) => ({
+    code: {
+      description: 'Write new SQL ORM',
+      group_id: groups.fullstack.id,
+      creator_id: users.jason.id,
+      assignee_id: users.jason.id
+    },
+    review: {
+      description: 'Review my pull request',
+      group_id: groups.fullstack.id,
+      creator_id: users.jeff.id,
+      assignee_id: users.jason.id
+    },
+    debug: {
+      description: 'Help with debugging an issue',
+      group_id: groups.fullstack.id,
+      creator_id: users.jason.id,
+    },
+    cleanDishes: {
+      description: 'clean the Dishes',
+      group_id: groups.apartment.id,
+      creator_id: users.jason.id,
+    },
+
+  })
+)
+
+const bounties = seed(Bounty,
+  ({ tasks, users }) => ({
+    oneK: {
+      amount: 1000,
+      task_id: tasks.code.id,
+      user_id: users.jason.id,
+    },
+    eightHun: {
+      amount: 800,
+      task_id: tasks.code.id,
+      user_id: users.jeff.id,
+    },
+    SevFifty: {
+      amount: 750,
+      task_id: tasks.review.id,
+      user_id: users.jeff.id,
+    },
+    threeHun: {
+      amount: 300,
+      task_id: tasks.review.id,
+      user_id: users.jason.id,
+    },
+    twoK: {
+      amount: 2000,
+      task_id: tasks.debug.id,
+      user_id: users.jason.id,
+    },
+    nineHun: {
+      amount: 900,
+      task_id: tasks.cleanDishes.id,
+      user_id: users.jason.id,
+    },
+  })
+)
 
 
 if (module === require.main) {
   db.didSync
     .then(() => db.sync({ force: true }))
-    .then(seedEverything())
+    .then(seedEverything)
     .finally(() => process.exit(0))
 }
 
@@ -142,12 +187,14 @@ function seed(Model, rows) {
             value: Promise.props(row)
               .then(row => Model.create(row)
                 .catch(error => {
-                  throw new BadRow(key, row, error) })
+                  throw new BadRow(key, row, error)
+                })
               )
           }
         }).reduce(
           (all, one) => Object.assign({}, all, {
-            [one.key]: one.value }), {}
+            [one.key]: one.value
+          }), {}
         )
       ))
       .then(seeded => {
