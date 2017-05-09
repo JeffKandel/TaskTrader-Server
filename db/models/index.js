@@ -19,6 +19,9 @@ const debug = require('debug')(`chorely-server:models`)
     Group: require('./group'),
     Task: require('./task'),
     User: require('./user'),
+    UserGroup: require('./userGroup'),
+    TaskCategory: require('./taskCategory'),
+    BountyTask: require('./bountyTask')
   },
   { mapValues } = require('lodash')
 
