@@ -13,6 +13,7 @@ const debug = require('debug')(`chorely-server:models`)
     // about.
     , metaModels = {
       // ---------- Add new models here ----------
+      const Users = require('./user')
     }
     , {mapValues} = require('lodash')
 
