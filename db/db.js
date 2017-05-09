@@ -38,7 +38,7 @@ Object.assign(db, require('./models')(db),
 db.didSync = db.createAndSync()
 
 // sync the db, creating it if necessary
-function createAndSync(force=false, retries=0, maxRetries=5) {
+function createAndSync(force=!process.env.IS_PRODUCTION, retries=0, maxRetries=5) {
   return db.sync({force})
     .then(() => debug(`Synced models to db ${url}`))
     .catch(fail => {
