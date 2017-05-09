@@ -14,7 +14,7 @@ const { buildSchema } = require('graphql')
 // misc. middleware
 const bodyParser = require('body-parser')
 const PrettyError = require('pretty-error')
-const finalHandler = require('finalHandler');
+const finalHandler = require('finalHandler')
 
 // app definition
 const app = express()
