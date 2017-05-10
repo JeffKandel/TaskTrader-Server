@@ -1,11 +1,11 @@
 'use strict';
 
-const { STRING, ENUM } = require('sequelize');
+const { STRING } = require('sequelize');
 
 module.exports = db =>
   db.define('tasks', {
     description: STRING,
-    status: ENUM('Pending', 'Active', 'Completed')
+    status: STRING
   });
 
 module.exports.associations = (Task, { User, Bounty, Category, TaskCategory, BountyTask }) => {
