@@ -121,23 +121,27 @@ const taskCategories = seed(TaskCategory, ({ tasks, categories }) => ({
 const tasks = seed(Task, ({ groups, users }) => ({
   code: {
     description: 'Write new SQL ORM',
+    status: 'Completed',
     group_id: groups.fullstack.id,
     creator_id: users.jason.id,
     assignee_id: users.jason.id
   },
   review: {
     description: 'Review my pull request',
+    status: 'Active',
     group_id: groups.fullstack.id,
     creator_id: users.jeff.id,
     assignee_id: users.jason.id
   },
   debug: {
     description: 'Help with debugging an issue',
+    status: 'Pending',
     group_id: groups.fullstack.id,
     creator_id: users.jason.id
   },
   cleanDishes: {
     description: 'clean the Dishes',
+    status: 'Pending',
     group_id: groups.apartment.id,
     creator_id: users.jason.id
   }

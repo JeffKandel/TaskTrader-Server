@@ -5,6 +5,7 @@ const { STRING } = require('sequelize');
 module.exports = db =>
   db.define('tasks', {
     description: STRING,
+    status: STRING
   });
 
 module.exports.associations = (Task, { User, Bounty, Category, TaskCategory, BountyTask }) => {
