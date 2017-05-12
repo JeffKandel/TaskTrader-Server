@@ -4,12 +4,20 @@ const { STRING } = require('sequelize');
 
 module.exports = db =>
   db.define('tasks', {
-    description: STRING,
-    status: STRING
+    description: {
+      type: STRING,
+      allowNull: false
+    },
+    status: { type: STRING
+      defaultValue: 'pending'
+    }
   });
 
-module.exports.associations = (Task, { User, Bounty, Category, TaskCategory, BountyTask }) => {
-  Task.belongsToMany(Bounty, { through: BountyTask});
+module.exports.associations = (
+  Task,
+  { User, Bounty, Category, TaskCategory, BountyTask }
+) => {
+  Task.belongsToMany(Bounty, { through: BountyTask });
   Task.belongsToMany(Category, { through: TaskCategory });
   Task.belongsTo(User, { as: 'creator' });
   Task.belongsTo(User, { as: 'assignee' });
