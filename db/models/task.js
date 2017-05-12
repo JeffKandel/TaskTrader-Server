@@ -10,7 +10,7 @@ module.exports = db =>
     },
     status: {
       type: STRING,
-      defaultValue: 'pending'
+      defaultValue: 'Pending'
     }
   });
 
