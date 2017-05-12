@@ -6,7 +6,10 @@ module.exports = db =>
   db.define('tasks', {
     description: {
       type: STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
     },
     status: {
       type: STRING,
