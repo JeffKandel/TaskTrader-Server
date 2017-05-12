@@ -6,6 +6,10 @@ module.exports = db =>
   db.define('users', {
     name: {
       type: STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
     },
     password: STRING,
     image: STRING,
