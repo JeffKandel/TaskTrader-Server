@@ -8,7 +8,8 @@ module.exports = db =>
       type: STRING,
       allowNull: false
     },
-    status: { type: STRING
+    status: {
+      type: STRING,
       defaultValue: 'pending'
     }
   });
