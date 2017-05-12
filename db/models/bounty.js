@@ -7,7 +7,7 @@ module.exports = db =>
     amount: {
       type: INTEGER,
       validate: {
-        min: 1,
+        min: 0,
         max: 100
       }
     }
