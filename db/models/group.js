@@ -6,7 +6,10 @@ module.exports = db =>
   db.define('groups', {
     name: {
       type: STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
     },
     description: STRING,
     image: STRING
