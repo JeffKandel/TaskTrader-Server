@@ -13,6 +13,7 @@ module.exports = db =>
     }
   });
 
-module.exports.associations = (Bounty, { Task, BountyTask }) => {
+module.exports.associations = (Bounty, { Task, BountyTask, User }) => {
   Bounty.belongsToMany(Task, { through: BountyTask });
+  Bounty.belongsTo(User)
 };
