@@ -149,32 +149,32 @@ const tasks = seed(Task, ({ groups, users }) => ({
 
 const bounties = seed(Bounty, ({ tasks, users }) => ({
   oneK: {
-    amount: 1000,
+    amount: 100,
     task_id: tasks.code.id,
     user_id: users.jason.id
   },
   eightHun: {
-    amount: 800,
+    amount: 80,
     task_id: tasks.code.id,
     user_id: users.jeff.id
   },
   SevFifty: {
-    amount: 750,
+    amount: 75,
     task_id: tasks.review.id,
     user_id: users.jeff.id
   },
   threeHun: {
-    amount: 300,
+    amount: 30,
     task_id: tasks.review.id,
     user_id: users.jason.id
   },
   twoK: {
-    amount: 2000,
+    amount: 20,
     task_id: tasks.debug.id,
     user_id: users.jason.id
   },
   nineHun: {
-    amount: 900,
+    amount: 90,
     task_id: tasks.cleanDishes.id,
     user_id: users.jason.id
   }
