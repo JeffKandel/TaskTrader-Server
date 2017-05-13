@@ -4,7 +4,13 @@ const { STRING } = require('sequelize');
 
 module.exports = db =>
   db.define('groups', {
-    name: STRING,
+    name: {
+      type: STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
+    },
     description: STRING,
     image: STRING
   });

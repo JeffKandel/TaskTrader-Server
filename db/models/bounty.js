@@ -4,7 +4,13 @@ const { INTEGER } = require('sequelize');
 
 module.exports = db =>
   db.define('bounties', {
-    amount: INTEGER
+    amount: {
+      type: INTEGER,
+      validate: {
+        min: 0,
+        max: 100
+      }
+    }
   });
 
 module.exports.associations = (Bounty, { Task, BountyTask, User }) => {
