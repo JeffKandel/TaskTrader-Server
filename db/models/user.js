@@ -4,12 +4,20 @@ const { STRING } = require('sequelize');
 
 module.exports = db =>
   db.define('users', {
-    name: STRING,
+    name: {
+      type: STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
+    },
     password: STRING,
     image: STRING,
     phoneNumber: STRING,
     email: {
       type: STRING,
+      unique: true,
+      allowNull: false,
       validate: {
         isEmail: true,
         notEmpty: true
