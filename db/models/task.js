@@ -17,12 +17,11 @@ module.exports = db =>
     }
   });
 
-module.exports.associations = (
-  Task,
-  { User, Bounty, Category, TaskCategory, BountyTask }
-) => {
-  Task.belongsToMany(Bounty, { through: BountyTask });
+module.exports.associations = (Task, { User, Bounty, Category, TaskCategory, BountyTask, Group }) => {
+  Task.belongsToMany(Bounty, { through: BountyTask});
   Task.belongsToMany(Category, { through: TaskCategory });
   Task.belongsTo(User, { as: 'creator' });
   Task.belongsTo(User, { as: 'assignee' });
+  Task.belongsTo(User, { as: 'debtor' });
+  Task.belongsTo(Group);
 };

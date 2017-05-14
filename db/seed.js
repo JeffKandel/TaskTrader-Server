@@ -124,14 +124,16 @@ const tasks = seed(Task, ({ groups, users }) => ({
     status: 'Completed',
     group_id: groups.fullstack.id,
     creator_id: users.jason.id,
-    assignee_id: users.jason.id
+    assignee_id: users.jason.id,
+    debtor_id: users.jeff.id
   },
   review: {
     description: 'Review my pull request',
     status: 'Active',
     group_id: groups.fullstack.id,
     creator_id: users.jeff.id,
-    assignee_id: users.jason.id
+    assignee_id: users.jason.id,
+    debtor_id: users.jeff.id
   },
   debug: {
     description: 'Help with debugging an issue',
