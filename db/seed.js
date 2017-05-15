@@ -41,12 +41,12 @@ const groups = seed(Group, {
   fullstack: {
     name: 'Fullstack',
     description: 'chorely group',
-    image: 'default.png'
+    icon: 'code'
   },
   apartment: {
     name: 'Apartment',
     description: 'apartment',
-    image: 'default.png'
+    icon: 'home'
   }
 });
 
