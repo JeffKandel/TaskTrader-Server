@@ -188,12 +188,8 @@ const bountyTasks = seed(BountyTask,
       bounty_id: bounties.nineHun.id,
       task_id: tasks.code.id
     },
-    'twoKCode': {
-      bounty_id: bounties.twoK.id,
-      task_id: tasks.code.id
-    },
     'threeHunCode': {
-      bounty_id: bounties.threeHun.id,
+      bounty_id: bounties.SevFifty.id,
       task_id: tasks.code.id
     },
     'nineHunReview': {
@@ -201,20 +197,8 @@ const bountyTasks = seed(BountyTask,
       task_id: tasks.review.id
     },
     'oneKReview': {
-      bounty_id: bounties.oneK.id,
+      bounty_id: bounties.eightHun.id,
       task_id: tasks.review.id
-    },
-    'threeHunReview': {
-      bounty_id: bounties.threeHun.id,
-      task_id: tasks.review.id
-    },
-    'nineHuncleanDishes': {
-      bounty_id: bounties.nineHun.id,
-      task_id: tasks.cleanDishes.id
-    },
-    'oneKcleanDishes': {
-      bounty_id: bounties.oneK.id,
-      task_id: tasks.cleanDishes.id
     },
     'threeHuncleanDishes': {
       bounty_id: bounties.threeHun.id,
@@ -222,14 +206,6 @@ const bountyTasks = seed(BountyTask,
     },
     'nineHunDebug': {
       bounty_id: bounties.nineHun.id,
-      task_id: tasks.debug.id
-    },
-    'oneKDebug': {
-      bounty_id: bounties.oneK.id,
-      task_id: tasks.debug.id
-    },
-    'threeHunDebug': {
-      bounty_id: bounties.threeHun.id,
       task_id: tasks.debug.id
     },
   })

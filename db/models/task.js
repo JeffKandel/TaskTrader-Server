@@ -15,6 +15,28 @@ module.exports = db =>
       type: STRING,
       defaultValue: 'Pending'
     }
+  }, {
+    hooks: {
+      afterUpdate: function(task) {
+        let maxBounty = task.bounties.reduce((oldMax, bounty) => {
+          return Math.max(oldMax, bounty.amount)
+        }, -1)
+        if (task.status === 'Active') {
+          db.UserGroup.findOne({
+            where: {
+              group_id: task.group_id,
+              user_id: task.debtor_id
+            }
+          })
+            .then(userGroupRow => {
+              userGroupRow.update({
+                points: userGroupRow.points - maxBounty
+              })
+            })
+            .catch(console.error)
+        }
+      }
+    }
   });
 
 module.exports.associations = (Task, { User, Bounty, Category, TaskCategory, BountyTask, Group }) => {
