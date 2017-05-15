@@ -18,6 +18,7 @@ module.exports = db =>
   }, {
     hooks: {
       afterUpdate: function(task) {
+        console.log('hit afterUpdate hook')
         let maxBounty = task.bounties.reduce((oldMax, bounty) => {
           return Math.max(oldMax, bounty.amount)
         }, -1)
@@ -35,6 +36,34 @@ module.exports = db =>
             })
             .catch(console.error)
         }
+      },
+      afterBulkUpdate: function() {
+        let maxBounty
+        this.findAll({
+          where: {
+            status: 'Processing'
+          },
+          include: [{model: db.Bounty}]
+        })
+          .then(processingTask => {
+            const task = processingTask[0]
+            maxBounty = task.bounties.reduce((oldMax, bounty) => {
+              return Math.max(oldMax, bounty.amount)
+            }, -1)
+            task.update({status: 'Complete'})
+            return db.UserGroup.findOne({
+                where: {
+                  group_id: task.group_id,
+                  user_id: task.assignee_id
+                }
+              })
+            })
+          .then(userGroupRow => {
+            userGroupRow.update({
+              points: userGroupRow.points + maxBounty
+            })
+          })
+          .catch(console.error)
       }
     }
   });
