@@ -18,7 +18,6 @@ module.exports = db =>
   }, {
     hooks: {
       afterUpdate: function(task) {
-        console.log('hit afterUpdate hook')
         let maxBounty = task.bounties.reduce((oldMax, bounty) => {
           return Math.max(oldMax, bounty.amount)
         }, -1)
