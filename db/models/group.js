@@ -12,7 +12,7 @@ module.exports = db =>
       }
     },
     description: STRING,
-    image: STRING
+    icon: STRING
   });
 
 module.exports.associations = (Group, { User, Task, UserGroup }) => {
