@@ -12,7 +12,10 @@ module.exports = db =>
       }
     },
     password: STRING,
-    image: STRING,
+    image: {
+      type: STRING,
+      defaultValue: 'default.png'
+    },
     phoneNumber: STRING,
     email: {
       type: STRING,
