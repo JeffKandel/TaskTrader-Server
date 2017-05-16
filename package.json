@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/app.js",
+    "start-test": "nodemon server/app.js",
     "dev": "nodemon server/app.js",
     "test": "mocha --watch-extensions js,jsx db/**/*.test.js",
     "seed": "node db/seed.js",

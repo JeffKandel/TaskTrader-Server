@@ -40,13 +40,13 @@ const users = seed(User, {
 const groups = seed(Group, {
   fullstack: {
     name: 'Fullstack',
-    description: 'chorely group',
+    description: 'Chorely group',
     icon: 'code'
   },
   apartment: {
-    name: 'Apartment',
-    description: 'apartment',
-    icon: 'home'
+    name: 'Data',
+    description: 'Visualization',
+    icon: 'folder'
   }
 });
 
@@ -58,6 +58,16 @@ const userGroups = seed(UserGroup, ({ users, groups }) => ({
   'jeff fullstack': {
     group_id: groups.fullstack.id,
     user_id: users.jeff.id
+  },
+  'jason data': {
+    group_id: groups.apartment.id,
+    user_id: users.jason.id,
+    points: 65
+  },
+  'jeff data': {
+    group_id: groups.apartment.id,
+    user_id: users.jeff.id,
+    points: 135
   }
 }));
 
@@ -142,8 +152,48 @@ const tasks = seed(Task, ({ groups, users }) => ({
   cleanDishes: {
     description: 'clean the Dishes',
     status: 'Pending',
-    group_id: groups.apartment.id,
+    group_id: groups.fullstack.id,
     creator_id: users.jason.id
+  },
+  viz: {
+    description: 'Setup some data visualization',
+    status: 'Complete',
+    group_id: groups.apartment.id,
+    creator_id: users.jason.id,
+    assignee_id: users.jason.id,
+    debtor_id: users.jeff.id
+  },
+  db: {
+    description: 'Add more tasks to the database',
+    status: 'Complete',
+    group_id: groups.apartment.id,
+    creator_id: users.jeff.id,
+    assignee_id: users.jeff.id,
+    debtor_id: users.jason.id
+  },
+  idea: {
+    description: 'Think of more ideas for seeded tasks',
+    status: 'Complete',
+    group_id: groups.apartment.id,
+    creator_id: users.jason.id,
+    assignee_id: users.jason.id,
+    debtor_id: users.jeff.id
+  },
+  dupe1: {
+    description: 'Remove this duplicate task from the DB',
+    status: 'Complete',
+    group_id: groups.apartment.id,
+    creator_id: users.jeff.id,
+    assignee_id: users.jeff.id,
+    debtor_id: users.jason.id
+  },
+  dupe2: {
+    description: 'Remove this duplicate task from the DB',
+    status: 'Complete',
+    group_id: groups.apartment.id,
+    creator_id: users.jeff.id,
+    assignee_id: users.jeff.id,
+    debtor_id: users.jason.id
   }
 }));
 
@@ -171,6 +221,46 @@ const bounties = seed(Bounty, ({ tasks, users }) => ({
   nineHun: {
     amount: 90,
     user_id: users.jason.id
+  },
+  vizJason: {
+    amount: 30,
+    user_id: users.jason.id
+  },
+  dbJason: {
+    amount: 45,
+    user_id: users.jason.id
+  },
+  ideaJason: {
+    amount: 5,
+    user_id: users.jason.id
+  },
+  dupe1Jason: {
+    amount: 25,
+    user_id: users.jason.id
+  },
+  dupe2Jason: {
+    amount: 25,
+    user_id: users.jason.id
+  },
+  vizJeff: {
+    amount: 40,
+    user_id: users.jeff.id
+  },
+  dbJeff: {
+    amount: 15,
+    user_id: users.jeff.id
+  },
+  ideaJeff: {
+    amount: 20,
+    user_id: users.jeff.id
+  },
+  dupe1Jeff: {
+    amount: 10,
+    user_id: users.jeff.id
+  },
+  dupe2Jeff: {
+    amount: 10,
+    user_id: users.jason.id
   }
 }));
 
@@ -196,6 +286,46 @@ const bountyTasks = seed(BountyTask,
       bounty_id: bounties.nineHun.id,
       task_id: tasks.debug.id
     },
+    vizJason: {
+      bounty_id: bounties.vizJason.id,
+      task_id: tasks.viz.id
+    },
+    dbJason: {
+      bounty_id: bounties.dbJason.id,
+      task_id: tasks.db.id
+    },
+    ideaJason: {
+      bounty_id: bounties.ideaJason.id,
+      task_id: tasks.idea.id
+    },
+    dupe1Jason: {
+      bounty_id: bounties.dupe1Jason.id,
+      task_id: tasks.dupe1.id
+    },
+    dupe2Jason: {
+      bounty_id: bounties.dupe2Jason.id,
+      task_id: tasks.dupe2.id
+    },
+    vizJeff: {
+      bounty_id: bounties.vizJeff.id,
+      task_id: tasks.viz.id
+    },
+    dbJeff: {
+      bounty_id: bounties.dbJeff.id,
+      task_id: tasks.db.id
+    },
+    ideaJeff: {
+      bounty_id: bounties.ideaJeff.id,
+      task_id: tasks.idea.id
+    },
+    dupe1Jeff: {
+      bounty_id: bounties.dupe1Jeff.id,
+      task_id: tasks.dupe1.id
+    },
+    dupe2Jeff: {
+      bounty_id: bounties.dupe2Jeff.id,
+      task_id: tasks.dupe2.id
+    }
   })
 );
 
