@@ -121,7 +121,7 @@ const taskCategories = seed(TaskCategory, ({ tasks, categories }) => ({
 const tasks = seed(Task, ({ groups, users }) => ({
   code: {
     description: 'Write new SQL ORM',
-    status: 'Completed',
+    status: 'Complete',
     group_id: groups.fullstack.id,
     creator_id: users.jason.id,
     assignee_id: users.jason.id,
@@ -129,11 +129,9 @@ const tasks = seed(Task, ({ groups, users }) => ({
   },
   review: {
     description: 'Review my pull request',
-    status: 'Active',
+    status: 'Pending',
     group_id: groups.fullstack.id,
     creator_id: users.jeff.id,
-    assignee_id: users.jason.id,
-    debtor_id: users.jeff.id
   },
   debug: {
     description: 'Help with debugging an issue',
@@ -152,32 +150,26 @@ const tasks = seed(Task, ({ groups, users }) => ({
 const bounties = seed(Bounty, ({ tasks, users }) => ({
   oneK: {
     amount: 100,
-    task_id: tasks.code.id,
     user_id: users.jason.id
   },
   eightHun: {
     amount: 80,
-    task_id: tasks.code.id,
     user_id: users.jeff.id
   },
   SevFifty: {
     amount: 75,
-    task_id: tasks.review.id,
     user_id: users.jeff.id
   },
   threeHun: {
     amount: 30,
-    task_id: tasks.review.id,
     user_id: users.jason.id
   },
   twoK: {
     amount: 20,
-    task_id: tasks.debug.id,
     user_id: users.jason.id
   },
   nineHun: {
     amount: 90,
-    task_id: tasks.cleanDishes.id,
     user_id: users.jason.id
   }
 }));
@@ -188,33 +180,13 @@ const bountyTasks = seed(BountyTask,
       bounty_id: bounties.nineHun.id,
       task_id: tasks.code.id
     },
-    'twoKCode': {
-      bounty_id: bounties.twoK.id,
-      task_id: tasks.code.id
-    },
     'threeHunCode': {
-      bounty_id: bounties.threeHun.id,
+      bounty_id: bounties.SevFifty.id,
       task_id: tasks.code.id
     },
     'nineHunReview': {
-      bounty_id: bounties.nineHun.id,
+      bounty_id: bounties.SevFifty.id,
       task_id: tasks.review.id
-    },
-    'oneKReview': {
-      bounty_id: bounties.oneK.id,
-      task_id: tasks.review.id
-    },
-    'threeHunReview': {
-      bounty_id: bounties.threeHun.id,
-      task_id: tasks.review.id
-    },
-    'nineHuncleanDishes': {
-      bounty_id: bounties.nineHun.id,
-      task_id: tasks.cleanDishes.id
-    },
-    'oneKcleanDishes': {
-      bounty_id: bounties.oneK.id,
-      task_id: tasks.cleanDishes.id
     },
     'threeHuncleanDishes': {
       bounty_id: bounties.threeHun.id,
@@ -222,14 +194,6 @@ const bountyTasks = seed(BountyTask,
     },
     'nineHunDebug': {
       bounty_id: bounties.nineHun.id,
-      task_id: tasks.debug.id
-    },
-    'oneKDebug': {
-      bounty_id: bounties.oneK.id,
-      task_id: tasks.debug.id
-    },
-    'threeHunDebug': {
-      bounty_id: bounties.threeHun.id,
       task_id: tasks.debug.id
     },
   })
