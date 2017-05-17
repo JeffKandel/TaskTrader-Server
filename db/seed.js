@@ -53,11 +53,13 @@ const groups = seed(Group, {
 const userGroups = seed(UserGroup, ({ users, groups }) => ({
   'jason fullstack': {
     group_id: groups.fullstack.id,
-    user_id: users.jason.id
+    user_id: users.jason.id,
+    points: 80
   },
   'jeff fullstack': {
     group_id: groups.fullstack.id,
-    user_id: users.jeff.id
+    user_id: users.jeff.id,
+    points: 120
   },
   'jason data': {
     group_id: groups.apartment.id,
@@ -199,27 +201,27 @@ const tasks = seed(Task, ({ groups, users }) => ({
 
 const bounties = seed(Bounty, ({ tasks, users }) => ({
   oneK: {
-    amount: 100,
+    amount: 25,
     user_id: users.jason.id
   },
   eightHun: {
-    amount: 80,
+    amount: 30,
     user_id: users.jeff.id
   },
   SevFifty: {
-    amount: 75,
+    amount: 35,
     user_id: users.jeff.id
   },
   threeHun: {
-    amount: 30,
+    amount: 45,
     user_id: users.jason.id
   },
   twoK: {
-    amount: 20,
+    amount: 15,
     user_id: users.jason.id
   },
   nineHun: {
-    amount: 90,
+    amount: 20,
     user_id: users.jason.id
   },
   vizJason: {
