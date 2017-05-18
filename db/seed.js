@@ -21,31 +21,58 @@ function seedEverything() {
 }
 
 const users = seed(User, {
-  jason: {
+  'jason': {
     name: 'Jason',
     password: '123',
-    image: 'default.png',
+    image: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAtAAAAAJDc0YmZlODdkLTBmYzktNDY4NC1iZWExLWQ3YjcxMzIwYzg1MA.jpg',
     phoneNumber: process.env.PHONE_NUMBER_ONE,
     email: process.env.EMAIL_NUMBER_ONE
   },
   jeff: {
     name: 'Jeff',
     password: '123',
-    image: 'default.png',
+    image: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAh2AAAAJDcyMWQ5NGJhLTY4YmEtNDc3MS05ZjA5LTY5NTBiOTE5YmQwNw.jpg',
     phoneNumber: process.env.PHONE_NUMBER_TWO,
     email: process.env.EMAIL_NUMBER_TWO
+  },
+  danny: {
+    name: 'Danny',
+    password: '123',
+    image: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAq6AAAAJGE0YzI2YjM3LWY4MjMtNDI2Zi04M2M1LTgwZTQ5ZWM4MTcxMA.jpg',
+    phoneNumber: process.env.PHONE_NUMBER_THREE,
+    email: process.env.EMAIL_NUMBER_THREE
+  },
+  demo1: {
+    name: 'Demo User 1',
+    password: 'demo',
+    email: 'DemoUser1@example.com'
+  },
+  demo2: {
+    name: 'Demo User 2',
+    password: 'demo',
+    email: 'DemoUser2@example.com'
   }
 });
 
 const groups = seed(Group, {
   fullstack: {
-    name: 'Fullstack',
-    description: 'Chorely group',
+    name: 'Fullstack Academy',
+    description: 'FSA-NY 1702',
+    icon: 'school'
+  },
+  chorely: {
+    name: 'Chorely',
+    description: 'Capstone Project Team',
     icon: 'code'
   },
-  apartment: {
-    name: 'Data',
-    description: 'Visualization',
+  home: {
+    name: 'Home',
+    description: 'Apartment 1406',
+    icon: 'home'
+  },
+  demo: {
+    name: 'Demo Group',
+    description: 'Test features here!',
     icon: 'folder'
   }
 });
@@ -54,22 +81,57 @@ const userGroups = seed(UserGroup, ({ users, groups }) => ({
   'jason fullstack': {
     group_id: groups.fullstack.id,
     user_id: users.jason.id,
-    points: 80
+    points: 700
   },
   'jeff fullstack': {
     group_id: groups.fullstack.id,
     user_id: users.jeff.id,
-    points: 120
+    points: 1300
   },
-  'jason data': {
-    group_id: groups.apartment.id,
+  'danny fullstack': {
+    group_id: groups.fullstack.id,
+    user_id: users.danny.id,
+    points: 1000
+  },
+  'jason chorely': {
+    group_id: groups.chorely.id,
     user_id: users.jason.id,
-    points: 65
+    points: 855
   },
-  'jeff data': {
-    group_id: groups.apartment.id,
+  'jeff chorely': {
+    group_id: groups.chorely.id,
     user_id: users.jeff.id,
-    points: 135
+    points: 1315
+  },
+  'danny chorely': {
+    group_id: groups.chorely.id,
+    user_id: users.danny.id,
+    points: 830
+  },
+  'jason home': {
+    group_id: groups.home.id,
+    user_id: users.jason.id,
+    points: 1000
+  },
+  'jeff home': {
+    group_id: groups.home.id,
+    user_id: users.jeff.id,
+    points: 1000
+  },
+  'danny home': {
+    group_id: groups.home.id,
+    user_id: users.danny.id,
+    points: 1000
+  },
+  'demo user 1': {
+    group_id: groups.demo.id,
+    user_id: users.demo1.id,
+    points: 1000
+  },
+  'demo user 2': {
+    group_id: groups.demo.id,
+    user_id: users.demo2.id,
+    points: 1000
   }
 }));
 
@@ -136,8 +198,8 @@ const tasks = seed(Task, ({ groups, users }) => ({
     status: 'Complete',
     group_id: groups.fullstack.id,
     creator_id: users.jason.id,
-    assignee_id: users.jason.id,
-    debtor_id: users.jeff.id
+    assignee_id: users.jeff.id,
+    debtor_id: users.jason.id
   },
   review: {
     description: 'Review my pull request',
@@ -152,140 +214,156 @@ const tasks = seed(Task, ({ groups, users }) => ({
     creator_id: users.jason.id
   },
   cleanDishes: {
-    description: 'clean the Dishes',
+    description: 'Clean the dishes',
     status: 'Pending',
-    group_id: groups.fullstack.id,
+    group_id: groups.home.id,
     creator_id: users.jason.id
   },
   viz: {
     description: 'Setup some data visualization',
     status: 'Complete',
-    group_id: groups.apartment.id,
+    group_id: groups.chorely.id,
     creator_id: users.jason.id,
-    assignee_id: users.jason.id,
-    debtor_id: users.jeff.id
+    assignee_id: users.jeff.id,
+    debtor_id: users.danny.id
   },
   db: {
     description: 'Add more tasks to the database',
     status: 'Complete',
-    group_id: groups.apartment.id,
-    creator_id: users.jeff.id,
-    assignee_id: users.jeff.id,
+    group_id: groups.chorely.id,
+    creator_id: users.danny.id,
+    assignee_id: users.danny.id,
     debtor_id: users.jason.id
   },
   idea: {
     description: 'Think of more ideas for seeded tasks',
     status: 'Complete',
-    group_id: groups.apartment.id,
+    group_id: groups.chorely.id,
     creator_id: users.jason.id,
     assignee_id: users.jason.id,
-    debtor_id: users.jeff.id
+    debtor_id: users.danny.id
   },
   dupe1: {
     description: 'Remove this duplicate task from the DB',
     status: 'Complete',
-    group_id: groups.apartment.id,
-    creator_id: users.jeff.id,
-    assignee_id: users.jeff.id,
-    debtor_id: users.jason.id
+    group_id: groups.chorely.id,
+    creator_id: users.danny.id,
+    assignee_id: users.danny.id,
+    debtor_id: users.jeff.id
   },
   dupe2: {
     description: 'Remove this duplicate task from the DB',
     status: 'Complete',
-    group_id: groups.apartment.id,
-    creator_id: users.jeff.id,
+    group_id: groups.chorely.id,
+    creator_id: users.danny.id,
     assignee_id: users.jeff.id,
-    debtor_id: users.jason.id
+    debtor_id: users.danny.id
   }
 }));
 
 const bounties = seed(Bounty, ({ tasks, users }) => ({
-  oneK: {
-    amount: 25,
-    user_id: users.jason.id
+  oneFifty: {
+    amount: 150,
+    user_id: users.danny.id
   },
-  eightHun: {
-    amount: 30,
+  seventyFive: {
+    amount: 75,
     user_id: users.jeff.id
   },
-  SevFifty: {
-    amount: 35,
-    user_id: users.jeff.id
-  },
-  threeHun: {
-    amount: 45,
+  threeHundred: {
+    amount: 300,
     user_id: users.jason.id
   },
-  twoK: {
-    amount: 15,
-    user_id: users.jason.id
-  },
-  nineHun: {
-    amount: 20,
+  oneEighty: {
+    amount: 180,
     user_id: users.jason.id
   },
   vizJason: {
-    amount: 30,
+    amount: 110,
     user_id: users.jason.id
   },
   dbJason: {
-    amount: 45,
+    amount: 430,
     user_id: users.jason.id
   },
   ideaJason: {
-    amount: 5,
+    amount: 60,
     user_id: users.jason.id
   },
   dupe1Jason: {
-    amount: 25,
+    amount: 190,
     user_id: users.jason.id
   },
   dupe2Jason: {
-    amount: 25,
+    amount: 130,
     user_id: users.jason.id
   },
   vizJeff: {
-    amount: 40,
+    amount: 65,
     user_id: users.jeff.id
   },
   dbJeff: {
-    amount: 15,
+    amount: 200,
     user_id: users.jeff.id
   },
   ideaJeff: {
-    amount: 20,
+    amount: 125,
     user_id: users.jeff.id
   },
   dupe1Jeff: {
-    amount: 10,
+    amount: 320,
     user_id: users.jeff.id
   },
   dupe2Jeff: {
-    amount: 10,
-    user_id: users.jason.id
+    amount: 95,
+    user_id: users.jeff.id
+  },
+  vizDanny: {
+    amount: 165,
+    user_id: users.danny.id
+  },
+  dbDanny: {
+    amount: 145,
+    user_id: users.danny.id
+  },
+  ideaDanny: {
+    amount: 285,
+    user_id: users.danny.id
+  },
+  dupe1Danny: {
+    amount: 70,
+    user_id: users.danny.id
+  },
+  dupe2Danny: {
+    amount: 150,
+    user_id: users.danny.id
   }
 }));
 
 const bountyTasks = seed(BountyTask,
   ({bounties, tasks}) => ({
-    'nineHunCode': {
-      bounty_id: bounties.nineHun.id,
+    'oneEightyCode': {
+      bounty_id: bounties.oneEighty.id,
       task_id: tasks.code.id
     },
-    'threeHunCode': {
-      bounty_id: bounties.SevFifty.id,
+    'oneFiftyCode': {
+      bounty_id: bounties.oneFifty.id,
       task_id: tasks.code.id
     },
-    'nineHunReview': {
-      bounty_id: bounties.SevFifty.id,
+    'threeHundredCode': {
+      bounty_id: bounties.seventyFive.id,
+      task_id: tasks.code.id
+    },
+    'oneEightyReview': {
+      bounty_id: bounties.seventyFive.id,
       task_id: tasks.review.id
     },
-    'threeHuncleanDishes': {
-      bounty_id: bounties.threeHun.id,
+    'threeHundredcleanDishes': {
+      bounty_id: bounties.threeHundred.id,
       task_id: tasks.cleanDishes.id
     },
-    'nineHunDebug': {
-      bounty_id: bounties.nineHun.id,
+    'oneEightyDebug': {
+      bounty_id: bounties.oneEighty.id,
       task_id: tasks.debug.id
     },
     vizJason: {
@@ -326,6 +404,26 @@ const bountyTasks = seed(BountyTask,
     },
     dupe2Jeff: {
       bounty_id: bounties.dupe2Jeff.id,
+      task_id: tasks.dupe2.id
+    },
+    vizDanny: {
+      bounty_id: bounties.vizDanny.id,
+      task_id: tasks.viz.id
+    },
+    dbDanny: {
+      bounty_id: bounties.dbDanny.id,
+      task_id: tasks.db.id
+    },
+    ideaDanny: {
+      bounty_id: bounties.ideaDanny.id,
+      task_id: tasks.idea.id
+    },
+    dupe1Danny: {
+      bounty_id: bounties.dupe1Danny.id,
+      task_id: tasks.dupe1.id
+    },
+    dupe2Danny: {
+      bounty_id: bounties.dupe2Danny.id,
       task_id: tasks.dupe2.id
     }
   })
