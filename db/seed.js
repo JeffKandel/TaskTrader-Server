@@ -81,17 +81,12 @@ const userGroups = seed(UserGroup, ({ users, groups }) => ({
   'jason fullstack': {
     group_id: groups.fullstack.id,
     user_id: users.jason.id,
-    points: 700
+    points: 820
   },
   'jeff fullstack': {
     group_id: groups.fullstack.id,
     user_id: users.jeff.id,
-    points: 1300
-  },
-  'danny fullstack': {
-    group_id: groups.fullstack.id,
-    user_id: users.danny.id,
-    points: 1000
+    points: 1180
   },
   'jason chorely': {
     group_id: groups.chorely.id,
@@ -194,7 +189,7 @@ const taskCategories = seed(TaskCategory, ({ tasks, categories }) => ({
 
 const tasks = seed(Task, ({ groups, users }) => ({
   code: {
-    description: 'Write new SQL ORM',
+    description: 'Send poll for social committee',
     status: 'Complete',
     group_id: groups.fullstack.id,
     creator_id: users.jason.id,
@@ -202,13 +197,13 @@ const tasks = seed(Task, ({ groups, users }) => ({
     debtor_id: users.jason.id
   },
   review: {
-    description: 'Review my pull request',
+    description: 'Collect contact info',
     status: 'Pending',
     group_id: groups.fullstack.id,
     creator_id: users.jeff.id,
   },
   debug: {
-    description: 'Help with debugging an issue',
+    description: 'Order class t-shirts',
     status: 'Pending',
     group_id: groups.fullstack.id,
     creator_id: users.jason.id
@@ -228,7 +223,7 @@ const tasks = seed(Task, ({ groups, users }) => ({
     debtor_id: users.danny.id
   },
   db: {
-    description: 'Add more tasks to the database',
+    description: 'Add more seed data',
     status: 'Complete',
     group_id: groups.chorely.id,
     creator_id: users.danny.id,
@@ -236,7 +231,7 @@ const tasks = seed(Task, ({ groups, users }) => ({
     debtor_id: users.jason.id
   },
   idea: {
-    description: 'Think of more ideas for seeded tasks',
+    description: 'Write the demo script',
     status: 'Complete',
     group_id: groups.chorely.id,
     creator_id: users.jason.id,
@@ -244,7 +239,7 @@ const tasks = seed(Task, ({ groups, users }) => ({
     debtor_id: users.danny.id
   },
   dupe1: {
-    description: 'Remove this duplicate task from the DB',
+    description: 'Remove duplicate task',
     status: 'Complete',
     group_id: groups.chorely.id,
     creator_id: users.danny.id,
@@ -252,7 +247,7 @@ const tasks = seed(Task, ({ groups, users }) => ({
     debtor_id: users.jeff.id
   },
   dupe2: {
-    description: 'Remove this duplicate task from the DB',
+    description: 'Remove duplicate task',
     status: 'Complete',
     group_id: groups.chorely.id,
     creator_id: users.danny.id,
@@ -262,10 +257,6 @@ const tasks = seed(Task, ({ groups, users }) => ({
 }));
 
 const bounties = seed(Bounty, ({ tasks, users }) => ({
-  oneFifty: {
-    amount: 150,
-    user_id: users.danny.id
-  },
   seventyFive: {
     amount: 75,
     user_id: users.jeff.id
@@ -344,10 +335,6 @@ const bountyTasks = seed(BountyTask,
   ({bounties, tasks}) => ({
     'oneEightyCode': {
       bounty_id: bounties.oneEighty.id,
-      task_id: tasks.code.id
-    },
-    'oneFiftyCode': {
-      bounty_id: bounties.oneFifty.id,
       task_id: tasks.code.id
     },
     'threeHundredCode': {

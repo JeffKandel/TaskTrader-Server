@@ -5,7 +5,7 @@ const { INTEGER } = require('sequelize')
 module.exports = db => db.define('userGroups', {
   points: {
     type: INTEGER,
-    defaultValue: 100
+    defaultValue: 1000
   }
 })
 
