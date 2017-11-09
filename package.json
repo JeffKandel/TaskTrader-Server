@@ -10,7 +10,7 @@
     "dev": "nodemon server/app.js",
     "test": "mocha --watch-extensions js,jsx db/**/*.test.js",
     "seed": "node db/seed.js",
-    "setup-env":"node bin/env-setup.js"
+    "setup-env": "node bin/env-setup.js"
   },
   "repository": {
     "type": "git",
