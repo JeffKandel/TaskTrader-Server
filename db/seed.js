@@ -60,8 +60,8 @@ const groups = seed(Group, {
     description: 'FSA-NY 1702',
     icon: 'school'
   },
-  chorely: {
-    name: 'Chorely',
+  tasktrader: {
+    name: 'TaskTrader',
     description: 'Capstone Project Team',
     icon: 'code'
   },
@@ -88,18 +88,18 @@ const userGroups = seed(UserGroup, ({ users, groups }) => ({
     user_id: users.jeff.id,
     points: 1180
   },
-  'jason chorely': {
-    group_id: groups.chorely.id,
+  'jason tasktrader': {
+    group_id: groups.tasktrader.id,
     user_id: users.jason.id,
     points: 855
   },
-  'jeff chorely': {
-    group_id: groups.chorely.id,
+  'jeff tasktrader': {
+    group_id: groups.tasktrader.id,
     user_id: users.jeff.id,
     points: 1315
   },
-  'danny chorely': {
-    group_id: groups.chorely.id,
+  'danny tasktrader': {
+    group_id: groups.tasktrader.id,
     user_id: users.danny.id,
     points: 830
   },
@@ -217,7 +217,7 @@ const tasks = seed(Task, ({ groups, users }) => ({
   viz: {
     description: 'Setup some data visualization',
     status: 'Complete',
-    group_id: groups.chorely.id,
+    group_id: groups.tasktrader.id,
     creator_id: users.jason.id,
     assignee_id: users.jeff.id,
     debtor_id: users.danny.id
@@ -225,7 +225,7 @@ const tasks = seed(Task, ({ groups, users }) => ({
   db: {
     description: 'Add more seed data',
     status: 'Complete',
-    group_id: groups.chorely.id,
+    group_id: groups.tasktrader.id,
     creator_id: users.danny.id,
     assignee_id: users.danny.id,
     debtor_id: users.jason.id
@@ -233,7 +233,7 @@ const tasks = seed(Task, ({ groups, users }) => ({
   idea: {
     description: 'Write the demo script',
     status: 'Complete',
-    group_id: groups.chorely.id,
+    group_id: groups.tasktrader.id,
     creator_id: users.jason.id,
     assignee_id: users.jason.id,
     debtor_id: users.danny.id
@@ -241,7 +241,7 @@ const tasks = seed(Task, ({ groups, users }) => ({
   dupe1: {
     description: 'Remove duplicate task',
     status: 'Complete',
-    group_id: groups.chorely.id,
+    group_id: groups.tasktrader.id,
     creator_id: users.danny.id,
     assignee_id: users.danny.id,
     debtor_id: users.jeff.id
@@ -249,7 +249,7 @@ const tasks = seed(Task, ({ groups, users }) => ({
   dupe2: {
     description: 'Remove duplicate task',
     status: 'Complete',
-    group_id: groups.chorely.id,
+    group_id: groups.tasktrader.id,
     creator_id: users.danny.id,
     assignee_id: users.jeff.id,
     debtor_id: users.danny.id

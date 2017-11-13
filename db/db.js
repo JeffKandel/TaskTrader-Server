@@ -1,11 +1,11 @@
 'use strict'
 require('dotenv').config()
 
-const debug = require('debug')(`chorely-server:db`) // DEBUG=your_app_name:db
+const debug = require('debug')(`tasktrader-server:db`) // DEBUG=your_app_name:db
     , chalk = require('chalk')
     , Sequelize = require('sequelize')
 
-    , name = (process.env.DATABASE_NAME || 'chorely-server') +
+    , name = (process.env.DATABASE_NAME || 'tasktrader-server') +
              (process.env.IS_TESTING==='yes' ? '_test' : '')
     , url = process.env.DATABASE_URL || `postgres://localhost:5432/${name}`
 

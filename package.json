@@ -1,5 +1,5 @@
 {
-  "name": "chorely-server",
+  "name": "tasktrader-server",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -14,15 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TaskIO/chorely-server.git"
+    "url": "git+https://github.com/TaskIO/tasktrader-server.git"
   },
   "keywords": [],
   "author": "Daniel Fattal, Jason Miguel, Jeffrey Kandel",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/TaskIO/chorely-server/issues"
+    "url": "https://github.com/TaskIO/tasktrader-server/issues"
   },
-  "homepage": "https://github.com/TaskIO/chorely-server#readme",
+  "homepage": "https://github.com/TaskIO/tasktrader-server#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
     "chai": "^3.5.0",
